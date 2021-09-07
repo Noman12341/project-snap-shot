@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: theme.spacing(2),
+    padding: theme.spacing(3, 4, 0),
   },
   mainHeading: {
     fontSize: theme.spacing(5),
@@ -13,7 +13,7 @@ export default makeStyles((theme) => ({
   },
   searchInput: {
     fontSize: theme.spacing(2),
-    backgroundColor: theme.palette.grey[200],
+    backgroundColor: "transparent",
     border: "2px solid grey",
     padding: theme.spacing(1.5),
     borderRadius: theme.spacing(0.5),
@@ -28,15 +28,20 @@ export default makeStyles((theme) => ({
     borderRadius: theme.spacing(0.5),
     color: "grey",
     cursor: "pointer",
-    margin: theme.spacing(0, 1),
+    margin: theme.spacing(1),
+    transition: "box-shadow .3s",
     "&:hover": {
-      boxShadow: theme.shadows[7],
+      boxShadow: theme.shadows[5],
     },
   },
   rootImage: {
     width: "100%",
     cursor: "pointer",
-    height: 200,
+    height: "100%",
+    transition: "transform .3s",
+    "&:hover": {
+      transform: "scale(1.5,1.5)",
+    },
   },
   cataBox: {
     display: "flex",
@@ -45,12 +50,14 @@ export default makeStyles((theme) => ({
   },
   scrollWrapper: {
     display: "flex",
-    maxWidth: 1151,
     overflowX: "auto",
     scrollBehavior: "smooth",
-    paddingBottom: theme.spacing(1.5),
     "&::-webkit-scrollbar": {
       display: "none",
     },
+  },
+  imgWrapper: {
+    overflow: "hidden",
+    height: 200,
   },
 }));

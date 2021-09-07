@@ -63,7 +63,9 @@ export default function Dialogs({ open, handleClose, imgIndex }) {
         Image
       </DialogTitle>
       <DialogContent dividers>
-        <Box style={{ width: 500, height: 335 }}>{images.length > 0 ? <img src={images[imgIndex]} /> : <Loader />}</Box>
+        <Box display="flex" justifyContent="center" style={{ width: 700 }}>
+          <Box style={{ height: "300px" }}>{images.length > 0 ? <img src={images[imgIndex]} height="300px" /> : <Loader />}</Box>
+        </Box>
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleClose} color="primary">
