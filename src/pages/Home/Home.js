@@ -57,6 +57,9 @@ function Home() {
         setCurrentImgIndex(queryStr.get("index") && Number(queryStr.get("index")));
         handleClickOpen();
       }
+      if (queryStr.get("modal") === "false") {
+        setOpen(false);
+      }
     }
   }, [queryStr.get("breed"), queryStr.get("modal")]);
 
