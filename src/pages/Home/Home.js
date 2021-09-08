@@ -49,17 +49,18 @@ function Home() {
   useEffect(() => {
     dispatch(getListOfAllBreads());
   }, []);
+
   useEffect(() => {
-    if (queryStr.get("breed")) {
+    if (queryStr.get("breed") !== currBreed) {
       setCurrentBreed(queryStr.get("breed"));
       dispatch(getImgesByBreadAct(queryStr.get("breed")));
-      if (queryStr.get("modal") && queryStr.get("index") && queryStr.get("modal") === "true") {
-        setCurrentImgIndex(queryStr.get("index") && Number(queryStr.get("index")));
-        handleClickOpen();
-      }
-      if (queryStr.get("modal") === "false") {
-        setOpen(false);
-      }
+    }
+    if (queryStr.get("index") && queryStr.get("modal") === "true") {
+      setCurrentImgIndex(Number(queryStr.get("index")));
+      handleClickOpen();
+    }
+    if (queryStr.get("modal") === "false") {
+      setOpen(false);
     }
   }, [queryStr.get("breed"), queryStr.get("modal")]);
 
@@ -90,8 +91,6 @@ function Home() {
                   key={index}
                   onClick={() => {
                     history.push(`/home?modal=false&breed=${bread}&index`);
-                    // setCurrentBreed(bread);
-                    // dispatch(getImgesByBreadAct(bread));
                   }}
                   className={classes.chipBtn}
                 >
@@ -119,8 +118,6 @@ function Home() {
                     <img
                       onClick={() => {
                         history.push(`/home?modal=true&breed=${currBreed}&index=${index}`);
-                        // setCurrentImgIndex(index);
-                        // handleClickOpen();
                       }}
                       className={classes.rootImage}
                       src={image}
@@ -133,7 +130,7 @@ function Home() {
           </Container>
         )
       )}
-      <ImageModal open={open} handleClose={handleClose} imgIndex={currImgIndex} />
+      <ImageModal open={open} handleClose={handleClose} imgSrc={breadImages[currImgIndex]} />
     </Box>
   );
 }

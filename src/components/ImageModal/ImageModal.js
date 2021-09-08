@@ -55,8 +55,8 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function Dialogs({ open, handleClose, imgIndex }) {
-  const images = useSelector((state) => state.data.breadImages);
+export default function Dialogs({ open, handleClose, imgSrc }) {
+  // const images = useSelector((state) => state.data.breadImages);
   return (
     <Dialog onClose={handleClose} maxWidth="lg" aria-labelledby="customized-dialog-title" open={open}>
       <DialogTitle id="customized-dialog-title" onClose={handleClose}>
@@ -64,11 +64,11 @@ export default function Dialogs({ open, handleClose, imgIndex }) {
       </DialogTitle>
       <DialogContent dividers>
         <Box display="flex" justifyContent="center" style={{ width: 700 }}>
-          <Box style={{ height: "300px" }}>{images.length > 0 ? <img src={images[imgIndex]} height="300px" /> : <Loader />}</Box>
+          <Box style={{ height: "300px" }}>{imgSrc ? <img src={imgSrc} height="300px" /> : <Loader />}</Box>
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleClose} color="primary">
+        <Button onClick={handleClose} color="primary" variant="contained">
           Close
         </Button>
       </DialogActions>
