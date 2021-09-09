@@ -18,8 +18,8 @@ function Home() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [searchVal, setSearchVal] = useState("");
-  const { breads, breadImages, filteredBreeds } = useSelector((state) => state.data);
-  const isLoading = useSelector((state) => state.loading.loading);
+  const { breadImages, filteredBreeds } = useSelector((state) => state.data);
+  const isLoading = useSelector((state) => state.loadingState.loading);
 
   const [currBreed, setCurrentBreed] = useState("Select breed");
   const [currImgIndex, setCurrentImgIndex] = useState();
@@ -27,7 +27,7 @@ function Home() {
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
-    history.push(`/home?modal=false&breed=${queryStr.get("breed")}&index=${queryStr.get("index")}`);
+    history.push(`/home?breed=${queryStr.get("breed")}&modal=false&index=${queryStr.get("index")}`);
     setOpen(false);
   };
 
@@ -51,7 +51,7 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if (queryStr.get("breed") !== currBreed) {
+    if (queryStr.get("breed") && queryStr.get("breed") !== currBreed) {
       setCurrentBreed(queryStr.get("breed"));
       setSearchVal(queryStr.get("breed"));
       dispatch(getImgesByBreadAct(queryStr.get("breed")));
@@ -98,7 +98,7 @@ function Home() {
               <button
                 key={index}
                 onClick={() => {
-                  history.push(`/home?modal=false&breed=${bread}&index`);
+                  history.push(`/home?&breed=${bread}&modal=false`);
                 }}
                 className={bread === currBreed ? classes.activeChipBtn : classes.chipBtn}
               >
@@ -125,7 +125,7 @@ function Home() {
                   <Box className={classes.imgWrapper}>
                     <img
                       onClick={() => {
-                        history.push(`/home?modal=true&breed=${currBreed}&index=${index}`);
+                        history.push(`/home?&breed=${currBreed}&modal=true&index=${index}`);
                       }}
                       className={classes.rootImage}
                       src={image}
