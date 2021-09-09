@@ -46,8 +46,9 @@ export default makeStyles((theme) => ({
     color: "orangered",
     cursor: "pointer",
     margin: theme.spacing(1),
-    boxShadow: "0px 0px 4px 2px orangered",
+    boxShadow: "0px 0px 4px 2px orange",
   },
+
   rootImage: {
     width: "100%",
     cursor: "pointer",
