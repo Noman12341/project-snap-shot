@@ -18,7 +18,7 @@ function Home() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [searchVal, setSearchVal] = useState("");
-  const { breads, breadImages } = useSelector((state) => state.data);
+  const { breads, breadImages, filteredBreeds } = useSelector((state) => state.data);
   const isLoading = useSelector((state) => state.loading.loading);
 
   const [currBreed, setCurrentBreed] = useState("Select breed");
@@ -53,6 +53,7 @@ function Home() {
   useEffect(() => {
     if (queryStr.get("breed") !== currBreed) {
       setCurrentBreed(queryStr.get("breed"));
+      setSearchVal(queryStr.get("breed"));
       dispatch(getImgesByBreadAct(queryStr.get("breed")));
     }
     if (queryStr.get("index") && queryStr.get("modal") === "true") {
@@ -73,7 +74,16 @@ function Home() {
           </Typography>
         </Box>
         <Box>
-          <input className={classes.searchInput} placeholder="Search..." type="text" value={searchVal} onChange={(e) => setSearchVal(e.target.value)} />
+          <input
+            className={classes.searchInput}
+            placeholder="Search..."
+            type="text"
+            value={searchVal}
+            onChange={(e) => {
+              setSearchVal(e.target.value);
+              dispatch({ type: "FILTER_BREEDS", payload: e.target.value });
+            }}
+          />
         </Box>
       </Box>
       <Box className={classes.cataBox} p={2} mb={4}>
@@ -83,20 +93,18 @@ function Home() {
           </IconButton>
         </Box>
         <Box ref={sliderRef} className={classes.scrollWrapper}>
-          {breads.length > 0 &&
-            breads
-              .filter((item) => item.includes(searchVal))
-              .map((bread, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    history.push(`/home?modal=false&breed=${bread}&index`);
-                  }}
-                  className={classes.chipBtn}
-                >
-                  {bread}
-                </button>
-              ))}
+          {filteredBreeds.length > 0 &&
+            filteredBreeds.map((bread, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  history.push(`/home?modal=false&breed=${bread}&index`);
+                }}
+                className={bread === currBreed ? classes.activeChipBtn : classes.chipBtn}
+              >
+                {bread}
+              </button>
+            ))}
         </Box>
         <Box>
           <IconButton onClick={handleForward}>
@@ -113,7 +121,7 @@ function Home() {
           <Container>
             <Grid container spacing={2}>
               {breadImages.map((image, index) => (
-                <Grid key={index} item sm={6} md={4} lg={3}>
+                <Grid key={index} item xs={6} sm={6} md={4} lg={3}>
                   <Box className={classes.imgWrapper}>
                     <img
                       onClick={() => {

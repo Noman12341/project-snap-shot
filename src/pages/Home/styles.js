@@ -6,6 +6,9 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     padding: theme.spacing(3, 4, 0),
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+    },
   },
   mainHeading: {
     fontSize: theme.spacing(5),
@@ -34,13 +37,24 @@ export default makeStyles((theme) => ({
       boxShadow: theme.shadows[5],
     },
   },
+  activeChipBtn: {
+    backgroundColor: "transparent",
+    fontSize: theme.spacing(2),
+    padding: theme.spacing(1.5, 3.5),
+    border: "2px solid lightgrey",
+    borderRadius: theme.spacing(0.5),
+    color: "grey",
+    cursor: "pointer",
+    margin: theme.spacing(1),
+    boxShadow: theme.shadows[5],
+  },
   rootImage: {
     width: "100%",
     cursor: "pointer",
     height: "100%",
-    transition: "transform .3s",
+    transition: "transform .4s",
     "&:hover": {
-      transform: "scale(1.5,1.5)",
+      transform: "scale(1.3,1.3)",
     },
   },
   cataBox: {
